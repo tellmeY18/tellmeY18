@@ -26,18 +26,18 @@ jobs:
           template: classic
           base: header, activity, community, repositories, metadata
           config_timezone: Asia/Kolkata
-          plugin_habits: yes
-          plugin_habits_days: 14
-          plugin_habits_facts: no
-          plugin_habits_from: 200
-          plugin_habits_charts: yes
-          plugin_isocalendar: yes
-          plugin_isocalendar_duration: full-year
-          plugin_lines: yes
-          plugin_notable: yes
-          plugin_notable_from: all
-          plugin_projects: yes
-          plugin_projects_descriptions: yes
-          plugin_projects_limit: 4
-          plugin_reactions: yes
-          plugin_reactions_details: percentage
+          #plugin_habits: yes
+       #   plugin_habits_days: 14
+        #  plugin_habits_facts: no
+         # plugin_habits_from: 200
+       #   plugin_habits_charts: yes
+        #  plugin_isocalendar: yes
+        #  plugin_isocalendar_duration: full-year
+        #  plugin_lines: yes
+        #  plugin_notable: yes
+        #  plugin_notable_from: all
+        #  plugin_projects: yes
+        #  plugin_projects_descriptions: yes
+        #  plugin_projects_limit: 4
+        #  plugin_reactions: yes
+        #  plugin_reactions_details: percentage
