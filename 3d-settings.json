@@ -1,7 +1,5 @@
 {
   "$schema": "https://raw.githubusercontent.com/yoshi389111/github-profile-3d-contrib/main/schema/settings.schema.json",
-  "type": "object",
-  "backgroundColor": "#00000000",
   "settings": [
     {
       "fileName": "profile-green-animate.svg",
