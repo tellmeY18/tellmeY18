@@ -1,0 +1,39 @@
+{
+  "$schema": "https://raw.githubusercontent.com/yoshi389111/github-profile-3d-contrib/main/schema/settings.schema.json",
+  "type": "object",
+  "backgroundColor": "#00000000",
+  "settings": [
+    {
+      "fileName": "profile-green-animate.svg",
+      "backgroundColor": "#00000000",
+      "type": "season",
+      "growingAnimation": true
+    },
+    {
+      "fileName": "profile-night-green.svg",
+      "backgroundColor": "#101010",
+      "type": "season",
+      "growingAnimation": false,
+      "foregroundColor": "#f0f0f0"
+    },
+    {
+      "fileName": "profile-night-rainbow.svg",
+      "backgroundColor": "#101010",
+      "type": "rainbow",
+      "growingAnimation": false,
+      "foregroundColor": "#f0f0f0"
+    },
+    {
+      "fileName": "profile-rainbow.svg",
+      "backgroundColor": "#ffffff00",
+      "type": "rainbow",
+      "growingAnimation": false
+    },
+    {
+      "fileName": "profile-season-animate.svg",
+      "backgroundColor": "#ffffff00",
+      "type": "season",
+      "growingAnimation": true
+    }
+  ]
+}

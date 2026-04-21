@@ -1,0 +1,48 @@
+name: 🏙️ GitHub Profile 3D Contrib
+
+on:
+  schedule:
+    # Runs every day at 18:30 UTC (00:00 IST)
+    - cron: "30 18 * * *"
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - master
+
+permissions:
+  contents: write
+
+jobs:
+  generate-3d-profile:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    name: 🌆 Generate 3D contribution skyline
+    steps:
+      # ───────────────────────────────────────────────
+      # 📥 Checkout the repo
+      # ───────────────────────────────────────────────
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v5
+
+      # ───────────────────────────────────────────────
+      # 🏙️ Generate the 3D profile SVGs (light + dark)
+      # ───────────────────────────────────────────────
+      - name: 🏙️ Build 3D contribution art
+        uses: yoshi389111/github-profile-3d-contrib@v0.9.2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          USERNAME: ${{ github.repository_owner }}
+          SETTING_JSON: ./3d-settings.json
+
+      # ───────────────────────────────────────────────
+      # 💾 Commit the generated profile-3d-contrib assets
+      # ───────────────────────────────────────────────
+      - name: 💾 Commit & push generated art
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore(3d): 🏙️ update 3D contribution skyline"
+          file_pattern: "profile-3d-contrib/*.svg"
+          commit_user_name: github-actions[bot]
+          commit_user_email: 41898282+github-actions[bot]@users.noreply.github.com
+          commit_author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>

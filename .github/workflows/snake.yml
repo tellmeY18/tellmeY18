@@ -1,0 +1,51 @@
+name: 🐍 Generate Snake
+
+on:
+  schedule:
+    - cron: "0 */12 * * *"
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - master
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      # ───────────────────────────────────────────────
+      # 📥 Checkout repository
+      # ───────────────────────────────────────────────
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v5
+
+      # ───────────────────────────────────────────────
+      # 🐍 Generate the snake animation eating my contributions
+      #    (light, dark, and bonus ocean GIF variants)
+      # ───────────────────────────────────────────────
+      - name: 🎨 Generate snake.svg (light + dark + gif)
+        uses: Platane/snk/svg-only@v3.4.1
+        with:
+          github_user_name: ${{ github.repository_owner }}
+          outputs: |
+            dist/github-snake.svg
+            dist/github-snake-dark.svg?palette=github-dark
+            dist/ocean.gif?color_snake=orange&color_dots=#bfd6f6,#8dbdff,#64a1f4,#4b91f1,#3c7dd9
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # ───────────────────────────────────────────────
+      # 🚀 Push generated files to the `output` branch
+      #    so the README can reference them via a stable URL
+      # ───────────────────────────────────────────────
+      - name: 📤 Push to output branch
+        uses: crazy-max/ghaction-github-pages@v4.2.0
+        with:
+          target_branch: output
+          build_dir: dist
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
