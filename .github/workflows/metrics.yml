@@ -12,16 +12,25 @@ permissions:
 jobs:
   github-metrics:
     runs-on: ubuntu-latest
-    environment:
-      name: production
     steps:
       # ───────────────────────────────────────────────
+      # 📥 Checkout so metrics can write into the workspace
+      # ───────────────────────────────────────────────
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v5
+
+      # ───────────────────────────────────────────────
       # 🎯 Main metrics card (header + activity + community)
+      #    output_action: none -> write file only, no commit
+      #    (we bundle all cards into ONE commit at the end
+      #     to avoid concurrent "git push" races that were
+      #     failing the job)
       # ───────────────────────────────────────────────
       - name: 📈 Main metrics
         uses: lowlighter/metrics@v3.34
         with:
           filename: github-metrics.svg
+          output_action: none
           token: ${{ secrets.METRICS_TOKEN || secrets.GITHUB_TOKEN }}
           user: tellmeY18
           template: classic
@@ -108,6 +117,7 @@ jobs:
         uses: lowlighter/metrics@v3.34
         with:
           filename: metrics.terminal.svg
+          output_action: none
           token: ${{ secrets.METRICS_TOKEN || secrets.GITHUB_TOKEN }}
           user: tellmeY18
           template: terminal
@@ -122,6 +132,7 @@ jobs:
         uses: lowlighter/metrics@v3.34
         with:
           filename: metrics.isocalendar.svg
+          output_action: none
           token: ${{ secrets.METRICS_TOKEN || secrets.GITHUB_TOKEN }}
           user: tellmeY18
           template: classic
@@ -137,6 +148,7 @@ jobs:
         uses: lowlighter/metrics@v3.34
         with:
           filename: metrics.achievements.svg
+          output_action: none
           token: ${{ secrets.METRICS_TOKEN || secrets.GITHUB_TOKEN }}
           user: tellmeY18
           template: classic
@@ -155,6 +167,7 @@ jobs:
         uses: lowlighter/metrics@v3.34
         with:
           filename: metrics.languages.svg
+          output_action: none
           token: ${{ secrets.METRICS_TOKEN || secrets.GITHUB_TOKEN }}
           user: tellmeY18
           template: classic
@@ -168,3 +181,15 @@ jobs:
           plugin_languages_indepth: yes
           plugin_languages_sections: most-used, recently-used
           plugin_languages_colors: github
+
+      # ───────────────────────────────────────────────
+      # 💾 Bundle all 5 SVGs into a single commit & push
+      # ───────────────────────────────────────────────
+      - name: 💾 Commit & push all metrics cards
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore(metrics): 📊 refresh dashboards"
+          file_pattern: "*.svg"
+          commit_user_name: github-actions[bot]
+          commit_user_email: 41898282+github-actions[bot]@users.noreply.github.com
+          commit_author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>

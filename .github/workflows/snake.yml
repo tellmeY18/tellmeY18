@@ -27,14 +27,13 @@ jobs:
       # 🐍 Generate the snake animation eating my contributions
       #    (light, dark, and bonus ocean GIF variants)
       # ───────────────────────────────────────────────
-      - name: 🎨 Generate snake.svg (light + dark + gif)
+      - name: 🎨 Generate snake.svg (light + dark)
         uses: Platane/snk/svg-only@v3.4.1
         with:
           github_user_name: ${{ github.repository_owner }}
           outputs: |
             dist/github-snake.svg
             dist/github-snake-dark.svg?palette=github-dark
-            dist/ocean.gif?color_snake=orange&color_dots=#bfd6f6,#8dbdff,#64a1f4,#4b91f1,#3c7dd9
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
